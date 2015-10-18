@@ -1,0 +1,163 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <AutoCompleteTextView
+            android:id="@+id/autodish"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:hint="@string/autocompletelable"
+            android:layout_weight="1.5" />
+
+        <!--<EditText-->
+            <!--android:id="@+id/edtquantity"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:hint="Quantity" />-->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btndec"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                style="@style/ButtonStyle"
+                android:text="-"
+                android:background="@color/main_color_700"
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:padding="5dp"
+                />
+
+            <EditText
+                android:id="@+id/edtquantity"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="1"
+                android:gravity="center"
+                android:textSize="25dp"
+                 android:inputType="number"
+                android:focusable="false"
+                />
+            <Button
+                android:id="@+id/btninc"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                style="@style/ButtonStyle"
+                android:text="+"
+                android:background="@color/main_color_700"
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:padding="5dp"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+    <Button
+        android:id="@+id/btnadddish"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@color/main_color_700"
+        android:textColor="@color/white"
+        android:padding="5dp"
+        style="@style/ButtonStyle"
+        android:text="@string/adddish"
+        android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btncustmode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@color/material_red_500"
+            android:textColor="@color/white"
+            style="@style/ButtonStyle"
+            android:text="@string/customermode"
+            android:textSize="20dp"
+            />
+
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnorderupdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/ButtonStyle"
+            android:background="@color/main_color_700"
+            android:textColor="@color/white"
+            android:text="@string/update" />
+
+        <Button
+            android:id="@+id/btnfinish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/material_red_500"
+            android:textColor="@color/white"
+            style="@style/ButtonStyle"
+            android:text="@string/finish" />
+        <Button
+            android:id="@+id/cancelorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/ButtonStyle"
+            android:background="@color/material_red_500"
+            android:textColor="@color/white"
+            android:text="@string/cancelordr"
+
+            android:visibility="gone"/>
+
+    </LinearLayout>
+</LinearLayout>
+
+
