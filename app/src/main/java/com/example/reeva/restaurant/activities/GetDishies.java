@@ -110,6 +110,11 @@ public class GetDishies extends AppCompatActivity {
         btndec=(Button)findViewById(R.id.btndec);
         dishqty = edtqty.getText().toString();
 
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Table Name: " + AppConst.tablename);
+        getSupportActionBar().setSubtitle("Order By: " + M.getUsername(this));
+
         if(AppConst.dishorederlist!=null)
         {
            // dishorederlist.clear();
@@ -496,17 +501,22 @@ public class GetDishies extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_get_dishies, menu);
+//        getMenuInflater().inflate(R.menu.menu_cust_dishes, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == android.R.id.home) {
+            Intent i = new Intent(GetDishies.this, GetAllTables.class);
+            finish();
+            startActivity(i);
             return true;
         }
 
@@ -561,11 +571,13 @@ public class GetDishies extends AppCompatActivity {
       //  edtcustname.setText(customername);
 
         final EditText edtcontactno=(EditText)promptView.findViewById(R.id.edtphonenum);
-
+        final Button btnok=(Button)promptView.findViewById(R.id.btnok);
+        final Button btnskip=(Button)promptView.findViewById(R.id.btnskip);
       //  edtcontactno.setText(contactno);
 
         final TextView txtrating=(TextView)promptView.findViewById(R.id.txtrating);
         final RatingBar rating=(RatingBar)promptView.findViewById(R.id.rat);
+
         rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -574,32 +586,42 @@ public class GetDishies extends AppCompatActivity {
                 Log.e("rating",rating1+"");
             }
         });
-        final TextView txtfeedback=(TextView)promptView.findViewById(R.id.txtfeedback);
+
 
         final EditText edtfeedback=(EditText)promptView.findViewById(R.id.edtfeedback);
 
-        alertDialogBuilder.setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //resultText.setText("Hello, " + editText.getText());
-                        customername=edtcustname.getText().toString();
-                        Log.e("customername",customername);
-                        contactno=edtcontactno.getText().toString();
-                        Log.e("contactno", contactno);
-                        feedback=edtfeedback.getText().toString();
-                        Log.e("feedback",feedback);
-                        getfeedback();
 
-                    }
-                })
-                .setNegativeButton("Skip",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                                Intent intent=new Intent(getApplicationContext(),GetAllTables.class);
-                                startActivity(intent);
-                            }
-                        });
+        btnok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customername=edtcustname.getText().toString();
+                contactno = edtcontactno.getText().toString();
+                if(customername.length()< 2)
+                {
+                    M.showToast(GetDishies.this, "Enter Valid customer name");
+                }else if(contactno.length()<7)
+                {
+                    M.showToast(GetDishies.this, "Enter valid Mobile Number");
+                }else {
+                    Log.e("customername", customername);
+
+                    Log.e("contactno", contactno);
+                    feedback = edtfeedback.getText().toString();
+                    Log.e("feedback", feedback);
+                    getfeedback();
+                }
+            }
+        });
+
+        btnskip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(getApplicationContext(),GetAllTables.class);
+                finish();
+                startActivity(intent);
+            }
+        });
 
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
@@ -622,8 +644,8 @@ public class GetDishies extends AppCompatActivity {
                 if (feedbackPojo.getSuccess().equals("0")) {
                     Toast.makeText(GetDishies.this, "finish", Toast.LENGTH_SHORT).show();
 
-                      finish();
                     Intent intent=new Intent(getApplicationContext(),GetAllTables.class);
+                    finish();
                     startActivity(intent);
 
 

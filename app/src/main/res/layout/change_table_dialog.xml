@@ -27,7 +27,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="New Order"
+                    android:text="Change Table"
                     android:id="@+id/textView"
                     android:textColor="@color/main_color_500"
                     android:textSize="20sp"/>
@@ -49,10 +49,30 @@
                     android:padding="10dp">
 
                     <TextView
-                        android:id="@+id/txttable"
+                        android:id="@+id/txtcurrenttable"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Select Table"
+                        android:text="Current Table"
+                        android:textColor="@color/main_color_500"
+                        android:background="@drawable/edittext"
+                        android:padding="25dp"
+                        ></TextView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tbllist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/txtnewtable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="New Table"
                         android:textColor="@color/main_color_500"
                         android:background="@drawable/edittext"
                         android:padding="25dp"

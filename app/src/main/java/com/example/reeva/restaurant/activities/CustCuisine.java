@@ -49,6 +49,14 @@ public class CustCuisine extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Table Name: " + AppConst.tablename);
+        getSupportActionBar().setSubtitle("Order By: " + M.getUsername(this));
+
+
+
         getCustCuisine();
 
     }
@@ -81,11 +89,6 @@ public class CustCuisine extends AppCompatActivity {
                         cuisineidlist.add(cuisineid);
                         cuisinenamelist.add(cuisinename);
                         cuisineimglist.add(cuisineimg);
-                        Log.e("cuisineid", cuisineid);
-                        Log.e("cuisinename",cuisinename);
-                        Log.e("cuisineimg",cuisineimg);
-
-                        //db.addTables(new TablePojo(id,tblname,tblstatus));
 
                     }
                 }
@@ -114,5 +117,29 @@ public class CustCuisine extends AppCompatActivity {
         startActivity(i);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_cust_dishes, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == android.R.id.home) {
+            Intent i = new Intent(this, GetDishies.class);
+            finish();
+            startActivity(i);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
 

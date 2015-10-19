@@ -17,4 +17,5 @@ public class AppConst {
   //  public static List<CustAddCartPojo> custlist;
     public static String currentorderid = "0";
     public static String tableid = "0";
+    public static String tablename = "";
 }

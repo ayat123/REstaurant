@@ -15,6 +15,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.reeva.restaurant.R;
 import com.example.reeva.restaurant.model.DishOrderPojo;
@@ -25,10 +26,13 @@ import com.example.reeva.restaurant.model.OrderByOrderidPojo;
 import com.example.reeva.restaurant.model.TablePojo;
 import com.example.reeva.restaurant.webservices.APIService;
 import com.example.reeva.restaurant.webservices.ActiveTableWithOrderAPI;
+import com.example.reeva.restaurant.webservices.ChangeTableAPI;
 import com.example.reeva.restaurant.webservices.GetOrderByOrderIDAPI;
 import com.example.reeva.restaurant.webservices.NewOrederAPI;
 import com.example.reeva.restaurant.webservices.TablesAPI;
 import com.melnykov.fab.FloatingActionButton;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +68,7 @@ public class GetAllTables extends AppCompatActivity {
     ArrayList<String> tblidlist = new ArrayList<String>();
     ArrayList<String> tblnamelist = new ArrayList<String>();
     String status1 = "0";
-    TextView txttable;
+    TextView txttable, newtable;
     private TablesAdpater tbladapter;
     private InactivetableAdapter inactivetableadapter;
 
@@ -104,11 +108,12 @@ public class GetAllTables extends AppCompatActivity {
                 dialog.show();
                 getInactiveTables();
                 Button btnButton = (Button) dialog.findViewById(R.id.btnorder);
+                Button btncancel = (Button) dialog.findViewById(R.id.btncancel);
                 btnButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         M m = new M();
-                        if(AppConst.dishorederlist !=null) {
+                        if (AppConst.dishorederlist != null) {
                             AppConst.dishorederlist.clear();
                         }
                         userid = M.getID(GetAllTables.this);
@@ -118,10 +123,21 @@ public class GetAllTables extends AppCompatActivity {
                     }
                 });
 
+                btncancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        dialog.dismiss();
+                    }
+                });
+
             }
         });
 
-
+        if(AppConst.dishorederlist !=null)
+        {
+            AppConst.dishorederlist.clear();
+        }
         getTables();
 
 
@@ -218,6 +234,9 @@ public class GetAllTables extends AppCompatActivity {
             @Override
             public void success(List<InactivTPojo> inactivTPojos, Response response) {
                 inatablelist.clear();
+                tblidlistina.clear();
+                tblnamelistina.clear();
+                tblstatuslistina.clear();
                 Log.e("table", inatablelist.size() + "");
                 if (inactivTPojos != null) {
 
@@ -304,19 +323,38 @@ public class GetAllTables extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                        AppConst.currentorderid=orderidlist.get(position).toString();
-                        AppConst.tableid=tblidlist.get(position).toString();
+                        AppConst.currentorderid = orderidlist.get(position).toString();
+                        AppConst.tableid = tblidlist.get(position).toString();
 
-                        GetAllTables.activetblorderid=activetblorderid;
-                        Log.e("acorderid",orderidlist.get(position).toString());
-                        Log.e("actbl",tblidlist.get(position).toString());
 
+                        Log.e("acorderid", orderidlist.get(position).toString());
+                        Log.e("actbl", tblidlist.get(position).toString());
+                        AppConst.tablename = tblnamelist.get(position).toString();
                         getorderidByorderid();
                         Log.e("orderidsize", orderidbyorderidlist.size() + "");
 
                     }
                 });
 
+                grd.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> arg0, View view,
+                                                   int position, long id) {
+                        // TODO Auto-generated method stub
+                        Toast.makeText(getApplicationContext(), "Long Click", Toast.LENGTH_SHORT).show();
+                        String currentorderid = orderidlist.get(position).toString();
+                        String tableid = tblidlist.get(position).toString();
+
+
+                        Log.e("acorderid", orderidlist.get(position).toString());
+                        Log.e("actbl", tblidlist.get(position).toString());
+                        String tablename = tblnamelist.get(position).toString();
+
+                        changetable(tablename, currentorderid, tableid);
+                        return false;
+                    }
+                });
 
                 M.hideLoadingDialog();
             }
@@ -367,10 +405,6 @@ public class GetAllTables extends AppCompatActivity {
                         odishnamelist.add(odishname);
                         oquantitylist.add(oquantity);
                         opricelist.add(oprice);
-                        Log.e("odishid", orderdata.getDishid() + "");
-                        Log.e("odishname", orderdata.getDishname() + "");
-                        Log.e("oquantity", orderdata.getQuantity() + "");
-                        Log.e("oprice", orderdata.getPrice() + "");
 
                         DishOrderPojo order=new DishOrderPojo();
                         order.setDishid(odishid);
@@ -413,6 +447,124 @@ public class GetAllTables extends AppCompatActivity {
             }
         });
     }
+
+    public void changetable(String currenttable, final String orderid, final String tblid)
+    {
+        final Dialog dialog = new Dialog(GetAllTables.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        dialog.setContentView(R.layout.change_table_dialog);
+        dialog.getWindow().setBackgroundDrawable(
+                new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+         newtable = (TextView) dialog.findViewById(R.id.txtnewtable);
+      final TextView txtcurrenttable  = (TextView) dialog.findViewById(R.id.txtcurrenttable);
+
+        txtcurrenttable.setText(""+currenttable);
+
+        newtable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectnewtable();
+            }
+        });
+
+        dialog.show();
+        getInactiveTables();
+        Button btnButton = (Button) dialog.findViewById(R.id.btnorder);
+        Button btncancel = (Button) dialog.findViewById(R.id.btncancel);
+        btnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                changetableAPI(orderid, tblid);
+
+                dialog.dismiss();
+            }
+        });
+
+        btncancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
+    }
+
+    void changetableAPI(String orderid, final String tblid) {
+        M.showLoadingDialog(GetAllTables.this);
+        ChangeTableAPI mCommentsAPI = APIService.createService(ChangeTableAPI.class);
+        mCommentsAPI.changeTable(orderid, tblid, new Callback<String>() {
+
+            @Override
+            public void success(String resp, Response response) {
+                M.hideLoadingDialog();
+                Log.e("tblid", tblid);
+
+                getTables();
+
+                Log.e("response", resp.toString());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                M.hideLoadingDialog();
+                Log.e("error", error.getMessage());
+            }
+        });
+
+
+    }
+
+    public void selectnewtable() {
+        final ArrayAdapter<String> adapter;
+        final Dialog myDialog = new Dialog(GetAllTables.this);
+        myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        myDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        myDialog.setContentView(R.layout.custom_spinner_dialog);
+        myDialog.getWindow().setBackgroundDrawable(
+                new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        TextView txtheader = (TextView) myDialog.findViewById(R.id.txtheader);
+
+        txtheader.setText("Select table");
+
+
+        final ListView listview = (ListView) myDialog
+                .findViewById(R.id.spinnerlist);
+
+        adapter = new ArrayAdapter<String>(GetAllTables.this,
+                android.R.layout.select_dialog_item, tblnamelistina);
+
+        listview.setAdapter(adapter);
+
+        if (tblidlistina.size() > 0) {
+            tableid = tblidlistina.get(0).toString();
+            listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+                    // TODO Auto-generated method stub
+                    myDialog.dismiss();
+
+
+                    tableid = tblidlistina.get(position).toString();
+                    newtable.setText(tblnamelistina.get(position).toString());
+                    Log.e("tablesize", tblidlistina.size() + "");
+
+                    Log.e("tableid", tableid);
+                }
+            });
+        }
+        myDialog.show();
+
+    }
+
 }
 
 

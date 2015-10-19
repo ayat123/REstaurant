@@ -2,40 +2,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="7dp"
     android:padding="5dp">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content">
     
     <EditText
         android:id="@+id/edtcusname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/customername"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content">
     <EditText
         android:id="@+id/edtphonenum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/contactno"
+        android:textColor="@color/main_color_500"
         android:inputType="phone"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+
     <TextView
         android:id="@+id/txtrating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/main_color_500"
         android:text="@string/txtrating"/>
     <RatingBar
         android:id="@+id/rat"
         android:layout_width="wrap_content"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:rating="2.0"
         android:layout_height="wrap_content" />
-    <TextView
-    android:id="@+id/txtfeedback"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/feedback"/>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content">
     <EditText
         android:id="@+id/edtfeedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/edtfeedback"
+        android:textColor="@color/main_color_500"
         android:lines="@integer/snackbar_text_max_lines"/>
-   <!-- <LinearLayout
+
+    </android.support.design.widget.TextInputLayout>
+ <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -45,13 +71,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fdok"
+            android:textColor="@color/white"
+            android:layout_margin="7dp"
+            android:background="@color/main_color_500"
             android:layout_weight="1"/>
         <Button
             android:id="@+id/btnskip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/skip"
+            android:textColor="@color/white"
+            android:background="@color/main_color_500"
+            android:layout_margin="7dp"
             android:layout_weight="1"/>
     </LinearLayout>
--->
+
 </LinearLayout>

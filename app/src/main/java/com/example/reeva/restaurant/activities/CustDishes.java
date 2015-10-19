@@ -69,6 +69,13 @@ public class CustDishes extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Table Name: " + AppConst.tablename);
+        getSupportActionBar().setSubtitle("Order By: " + M.getUsername(this));
+
+
         getCustDishes();
     }
 
@@ -143,7 +150,7 @@ public class CustDishes extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_cust_dishes, menu);
+//        getMenuInflater().inflate(R.menu.menu_cust_dishes, menu);
         return true;
     }
 
@@ -155,7 +162,8 @@ public class CustDishes extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == android.R.id.home) {
+            finish();
             return true;
         }
 

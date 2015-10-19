@@ -10,6 +10,7 @@
     <string name="title_activity_custom_view_grid">custom_view_grid</string>
     <string name="table_name">Table Name</string>
     <string name="order">New Order</string>
+    <string name="change">Change Table</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_get_dishies">GetDishies</string>
     <string name="update">Place Order</string>
