@@ -61,8 +61,12 @@ this.tablelist=tablelist;
 
 
         TextView txttname=(TextView)row.findViewById(R.id.txttblname);
+        TextView txtamount=(TextView)row.findViewById(R.id.txttotalamt);
+        TextView txttotaldish=(TextView)row.findViewById(R.id.txttotaldish);
 
        txttname.setText(tablelist.get(position).getTablename());
+        txtamount.setText(context.getResources().getString(R.string.amount)+ " "+AppConst.currency+tablelist.get(position).getAmount());
+        txttotaldish.setText(context.getResources().getString(R.string.dishordered)+ " "+tablelist.get(position).getTotaldish());
         return row;
     }
     }

@@ -4,7 +4,7 @@ package com.example.reeva.restaurant.model;
  * Created by Reeva on 9/21/2015.
  */
 public class TablePojo {
-    private String orderid,tableid,tablename;
+    private String orderid,tableid,tablename, totaldish, amount;
 
     public String getOrderid() {
         return orderid;
@@ -35,5 +35,21 @@ public class TablePojo {
         this.tableid = tableid;
 
         this.tablename = tablename;
+    }
+
+    public String getTotaldish() {
+        return totaldish;
+    }
+
+    public void setTotaldish(String totaldish) {
+        this.totaldish = totaldish;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 }

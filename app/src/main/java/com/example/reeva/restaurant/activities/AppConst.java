@@ -8,8 +8,8 @@ import java.util.List;
 
 public class AppConst {
     public static final String TAG = "Demo";
-    public static final String MAIN = "http://192.168.0.3/FortinRestaurant/webservice/";
-  public static final String URL = "http://192.168.0.3/FortinRestaurant/upload/";
+    public static final String MAIN = "http://swiftomatics.in/FortinRestaurant/webservice/";
+  public static final String URL = "http://swiftomatics.in/FortinRestaurant/upload/";
 
     public static List<DishOrderPojo> dishorederlist;
     public static String cusineid = "";
